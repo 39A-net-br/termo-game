@@ -16,6 +16,9 @@ Este repositório é material didático da **39A**: o jogo já funciona, e a ide
 Code com o plugin `engenharia@39a` pra inventar features e modos novos em cima dele. **Não precisa
 saber programar.**
 
+> Veio pela aula? O roteiro completo, do setup ao primeiro pull request, está em
+> **[docs/aula.md](docs/aula.md)**.
+
 ## O que precisa estar na sua máquina
 
 Abra o **PowerShell** (tecla Windows, digite `powershell`, Enter) e instale o que faltar. Se você é
@@ -87,6 +90,7 @@ src/termo/gui.py          a parte visual: desenha a grade e o teclado, e reage �
 src/termo/palavras.txt    as palavras do jogo — dá pra acrescentar as suas
 src/termo/__main__.py     o "botão de ligar" do jogo
 tests/                    testes automáticos: avisam quando algo quebra e explicam por que cada regra existe
+docs/aula.md              o guia da aula: do setup ao primeiro pull request, passo a passo
 CLAUDE.md                 o manual que o Claude Code lê antes de mexer neste projeto
 DECISOES.md               o diário do projeto: o que foi decidido, por quê, e qual teste protege
 IDEIAS.md                 lista de features pra você escolher e vibe codar
