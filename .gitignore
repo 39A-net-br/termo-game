@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+
+# Ambiente virtual criado pelo uv
+.venv/
+
+# Caches de ferramentas
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Editores e sistema operacional
+.idea/
+.vscode/
+Thumbs.db
+.DS_Store
+
+# Claude Code: configurações pessoais de cada pessoa (a compartilhada, settings.json, fica no repo)
+.claude/settings.local.json

@@ -1,0 +1,45 @@
+[project]
+name = "termo-game"
+version = "0.1.0"
+description = "Jogo do Termo (adivinhe a palavra de 5 letras) com interface gráfica (Pygame) — repositório didático da 39A"
+readme = "README.md"
+requires-python = ">=3.12"
+license = "MIT"
+authors = [{ name = "39A" }]
+dependencies = [
+    # ATENÇÃO: usamos o fork pygame-ce (Community Edition). Nunca adicione o pacote "pygame"
+    # junto — os dois instalam na mesma pasta e quebram um ao outro.
+    "pygame-ce>=2.5",
+]
+
+[project.scripts]
+# Permite rodar o jogo com `uv run termo`.
+termo = "termo.__main__:main"
+
+[dependency-groups]
+# Ferramentas de desenvolvimento (instaladas pelo `uv sync`, mas não fazem parte do jogo).
+dev = [
+    "pytest>=8",
+    "ruff>=0.12",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+# Obrigatório: o nome do projeto (termo-game) é diferente do nome do pacote (termo).
+packages = ["src/termo"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+# E/F = erros e problemas clássicos, I = ordem dos imports, UP = sintaxe moderna, B = armadilhas comuns
+# D100–D103 = toda função, classe e módulo público precisa de docstring (inclusive os testes:
+# a docstring do teste é o que explica POR QUE uma regra existe quando ela quebra).
+select = ["E", "F", "I", "UP", "B", "D100", "D101", "D102", "D103"]
