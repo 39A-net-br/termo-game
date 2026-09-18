@@ -29,7 +29,7 @@ da 39A e já passou pelo `/setup-inicial` do plugin de engenharia, está tudo a�
 | --------------- | ----------------------------------------------- | ------------------------------------------------------------ |
 | **Git**         | baixar o jogo e guardar o que você mudar        | `winget install --id Git.Git -e`                             |
 | **uv**          | baixa o Python e as bibliotecas sozinho         | `winget install --id astral-sh.uv -e`                        |
-| **Claude Code** | o programador que vai trabalhar com você        | [claude.com/claude-code](https://claude.com/claude-code)      |
+| **Claude Code** | o app onde você trabalha, com terminal dentro   | [claude.com/claude-code](https://claude.com/claude-code)      |
 | **GitHub CLI**  | abrir o pedido de merge, lá no fim              | `winget install --id GitHub.cli -e`                           |
 
 **Feche e abra o PowerShell depois de instalar.** Senão ele não encontra os comandos novos — é o
@@ -112,7 +112,7 @@ como a casa trabalha — e usá-lo é metade do que se aprende aqui:
 Feche e abra o Claude Code. O marketplace é privado: precisa da sua conta do GitHub na 39A. Sem ele
 o jogo funciona igual, só sem os atalhos.
 
-**2. Na pasta do projeto, rode `claude` no PowerShell.**
+**2. Abra a pasta do projeto no Claude Code.** A conversa e o terminal ficam ali dentro.
 
 **3. Escolha uma ideia no [IDEIAS.md](IDEIAS.md)** — ou invente a sua. Peça em português, do seu
 jeito. Exemplos pra copiar e colar:
