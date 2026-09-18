@@ -19,6 +19,7 @@ MAXIMO_TENTATIVAS = 6
 AVISO_FALTAM_LETRAS = "Faltam letras"
 AVISO_VITORIA = "Acertou!"
 AVISO_DERROTA = "A palavra era {palavra}"
+AVISO_LETRA_DESCARTADA = "{letra} já foi descartada"
 
 
 class Marca(Enum):
@@ -140,11 +141,19 @@ class Jogo:
     # ----- O que a pessoa faz -----
 
     def digitar(self, tecla: str) -> None:
-        """Acrescenta uma letra ao chute atual. Ignora tecla que não é letra e chute já cheio."""
+        """Acrescenta uma letra ao chute atual.
+
+        Ignora tecla que não é letra e chute já cheio. Recusa também letra que já foi
+        descartada (ficou cinza num chute anterior): não adianta gastar espaço no chute
+        com uma letra que já se sabe que não está na palavra.
+        """
         if self.acabou or len(self.digitando) >= TAMANHO_PALAVRA:
             return
         letra = sem_acento(tecla)
         if len(letra) != 1 or not letra.isalpha():
+            return
+        if self.letras_usadas().get(letra) is Marca.AUSENTE:
+            self.aviso = AVISO_LETRA_DESCARTADA.format(letra=letra)
             return
         self.digitando += letra
         self.aviso = ""
