@@ -18,6 +18,16 @@ Modelo:
 
 ---
 
+## 2026-09-18 — Letra já descartada (cinza) não pode mais ser digitada
+
+- **O que:** `Jogo.digitar` recusa uma letra cuja melhor marca já é `AUSENTE` e mostra o aviso
+  `AVISO_LETRA_DESCARTADA`, em vez de acrescentá-la ao chute.
+- **Por quê:** depois que o jogo revela que uma letra não está na palavra, redigitá-la só gasta
+  espaço num chute com algo que já se sabe errado. Letra verde ou amarela continua liberada, porque
+  existe na palavra e é dica útil.
+- **Protegido por:** `tests/test_jogo.py::test_letra_descartada_nao_pode_ser_digitada_de_novo`,
+  `::test_letra_verde_ou_amarela_continua_liberada`, `::test_letra_descartada_nao_trava_as_outras_letras`
+
 ## 2026-09-17 — A palavra é guardada com cada acento colado na sua letra (forma NFC)
 
 - **O que:** `palavras.canonica()` normaliza toda palavra que entra, ao carregar o arquivo e ao

@@ -18,6 +18,7 @@ from termo.gui import (
 )
 from termo.jogo import (
     AVISO_DERROTA,
+    AVISO_LETRA_DESCARTADA,
     MAXIMO_TENTATIVAS,
     TAMANHO_PALAVRA,
     Jogo,
@@ -81,7 +82,8 @@ def test_todo_aviso_cabe_na_largura_da_janela(tela):
     """
     mais_larga = max(carregar_palavras(), key=lambda palavra: tela.fonte_aviso.size(palavra)[0])
     derrota = f"{AVISO_DERROTA.format(palavra=mais_larga)} · {DICA_FIM}"
-    for texto in (DICA, derrota):
+    descartada = AVISO_LETRA_DESCARTADA.format(letra="W")
+    for texto in (DICA, derrota, descartada):
         assert tela.fonte_aviso.size(texto)[0] <= LARGURA_JANELA - 2 * MARGEM
 
 
@@ -119,7 +121,9 @@ def test_desenha_vitoria_e_derrota_sem_quebrar(tela):
 
     perdida = Tela(Jogo("TERMO"))
     for _ in range(MAXIMO_TENTATIVAS):
-        digitar(perdida, "CASAL")
+        # METRO usa só letras de TERMO: elas ficam verdes/amarelas e continuam digitáveis
+        # nas seis rodadas. Um chute com letra cinza não poderia ser repetido.
+        digitar(perdida, "METRO")
         apertar(perdida, pygame.K_RETURN)
     assert perdida.jogo.situacao is Situacao.DERROTA
     perdida.desenhar()

@@ -14,6 +14,7 @@ from termo import jogo as modulo_jogo
 from termo import palavras as modulo_palavras
 from termo.jogo import (
     AVISO_FALTAM_LETRAS,
+    AVISO_LETRA_DESCARTADA,
     MAXIMO_TENTATIVAS,
     TAMANHO_PALAVRA,
     Jogo,
@@ -195,6 +196,55 @@ def test_apagar_remove_a_ultima_letra():
     assert jogo.digitando == "CAS"
 
 
+def test_letra_descartada_nao_pode_ser_digitada_de_novo():
+    """Letra que já ficou cinza num chute anterior não entra mais no chute, e o jogo avisa.
+
+    Por quê: depois que o jogo mostra que uma letra não está na palavra, digitá-la de novo
+    só desperdiça espaço num chute — a pessoa pediu para o jogo barrar isso e lembrar o porquê.
+    """
+    jogo = Jogo("TERMO")
+    for tecla in "CASAL":  # contra TERMO, todas ficam cinza
+        jogo.digitar(tecla)
+    jogo.enviar()
+
+    jogo.digitar("C")
+    assert jogo.digitando == ""
+    assert jogo.aviso == AVISO_LETRA_DESCARTADA.format(letra="C")
+
+
+def test_letra_verde_ou_amarela_continua_liberada():
+    """Letra que já apareceu em verde ou amarelo ainda pode ser digitada.
+
+    Por quê: só a letra cinza está descartada. Uma letra amarela existe na palavra e é a
+    dica mais valiosa que há — barrá-la impediria a pessoa de usar justamente o que descobriu.
+    """
+    jogo = Jogo("TERMO")
+    for tecla in "OTERM":  # contra TERMO, todas ficam amarelas
+        jogo.digitar(tecla)
+    jogo.enviar()
+
+    jogo.digitar("O")
+    assert jogo.digitando == "O"
+    assert jogo.aviso == ""
+
+
+def test_letra_descartada_nao_trava_as_outras_letras():
+    """Barrar uma letra cinza não atrapalha digitar as que ainda estão livres.
+
+    Por quê: o bloqueio é por letra. Se o aviso de uma letra descartada impedisse as
+    seguintes de entrar, a pessoa ficaria presa sem conseguir montar o próximo chute.
+    """
+    jogo = Jogo("TERMO")
+    for tecla in "CASAL":  # descarta C, A, S, L
+        jogo.digitar(tecla)
+    jogo.enviar()
+
+    jogo.digitar("C")  # barrada
+    jogo.digitar("T")  # livre, deve entrar
+    assert jogo.digitando == "T"
+    assert jogo.aviso == ""
+
+
 def test_chute_incompleto_nao_gasta_tentativa():
     """Enter com o chute pela metade avisa e não consome uma das seis chances.
 
@@ -237,10 +287,14 @@ def test_errar_todas_as_tentativas_termina_em_derrota_e_revela_a_palavra():
 
     Por quê: terminar sem revelar deixa a pessoa sem aprender nada com a derrota — e a
     palavra secreta não tem mais nenhum valor depois do fim.
+
+    O chute errado repetido usa só letras de TERMO (METRO): elas ficam verdes ou amarelas,
+    nunca cinza, e por isso continuam digitáveis nas seis rodadas — uma palavra com letra
+    cinza não poderia ser redigitada, de propósito.
     """
     jogo = Jogo("TERMO")
     for _ in range(MAXIMO_TENTATIVAS):
-        for tecla in "CASAL":
+        for tecla in "METRO":
             jogo.digitar(tecla)
         jogo.enviar()
     assert jogo.situacao is Situacao.DERROTA
