@@ -24,9 +24,9 @@ não cabem nos 20 minutos do bloco 1.
 
 1. **Você aceitou o convite para a organização `39A-net-br` no GitHub.** Sem isso o plugin da 39A não
    instala — e ele é o centro da aula. Se não recebeu o convite, peça antes.
-2. **Claude Code instalado e logado com a sua conta `@39a.net.br`.** Baixe em
-   [claude.com/claude-code](https://claude.com/claude-code) e faça login uma vez, para confirmar que
-   abre.
+2. **O app do Claude Code instalado e logado com a sua conta `@39a.net.br`.** Baixe em
+   [claude.com/claude-code](https://claude.com/claude-code), instale e faça login uma vez, para
+   confirmar que abre. É dentro dele que a aula inteira acontece: a conversa, os comandos e o jogo.
 
 Se você ainda não tem conta no GitHub, crie em [github.com/signup](https://github.com/signup) usando
 o seu e-mail da 39A — leva três minutos e evita fila na aula.
@@ -42,11 +42,12 @@ Quatro ferramentas. Cada uma resolve uma parte do dia:
 | **Git**         | guarda cada versão do seu trabalho e permite voltar atrás                   |
 | **uv**          | baixa o Python e as bibliotecas do projeto, sem você configurar nada        |
 | **GitHub CLI**  | conversa com o GitHub pelo terminal — login, fork, pull request             |
-| **Claude Code** | o programador que vai trabalhar com você (já instalado, do passo anterior)  |
+| **Claude Code** | o app onde você trabalha — a conversa e o terminal ficam ali dentro         |
 
 ### Instalar
 
-Abra o **PowerShell** (tecla Windows, digite `powershell`, Enter) e rode um de cada vez:
+Abra o **Claude Code** e mostre o painel de **terminal** dele — é ali que você digita os comandos
+deste guia, sem precisar de mais nenhuma janela. Rode um de cada vez:
 
 ```powershell
 winget install --id Git.Git -e
@@ -60,8 +61,8 @@ winget install --id astral-sh.uv -e
 winget install --id GitHub.cli -e
 ```
 
-**Feche e abra o PowerShell.** Sem isso ele não enxerga o que você acabou de instalar — é o tropeço
-número um do dia.
+**Feche e abra o Claude Code.** Sem isso o terminal continua sem enxergar o que você acabou de
+instalar — é o tropeço número um do dia.
 
 ### Dizer quem você é
 
@@ -91,7 +92,7 @@ gh auth setup-git
 
 ### Instalar o plugin da 39A
 
-Abra o Claude Code (digite `claude` no PowerShell) e rode, dentro dele:
+Agora saia do terminal e vá para a **conversa** do Claude Code. Digite lá:
 
 ```
 /plugin marketplace add 39A-net-br/claude-plugins-39a
@@ -105,7 +106,7 @@ Abra o Claude Code (digite `claude` no PowerShell) e rode, dentro dele:
 
 ### Checkpoint
 
-Rode no PowerShell:
+De volta ao terminal do Claude Code:
 
 ```powershell
 git --version; uv --version; gh auth status
@@ -155,6 +156,9 @@ gh repo fork 39A-net-br/termo-game --clone
 Ele cria a cópia na sua conta e já baixa para a pasta onde você está. Se perguntar alguma coisa,
 responda **sim**.
 
+O endereço de onde ela sai é <https://github.com/39A-net-br/termo-game> — a sua fica em
+`github.com/<seu-usuario>/termo-game`.
+
 > Prefere pelo site? Abra <https://github.com/39A-net-br/termo-game>, clique em **Fork** e depois em
 > **Code → HTTPS** para copiar o endereço do **seu** fork, e rode
 > `git clone https://github.com/<seu-usuario>/termo-game`.
@@ -180,17 +184,16 @@ uv run termo
 A janela do jogo abriu. **Jogue uma partida** — digite uma palavra de 5 letras, Enter, veja as cores.
 `Esc` fecha.
 
+Agora **abra a pasta `termo-game` no Claude Code**: é nela que ele vai trabalhar daqui para a
+frente, e é dela que ele lê o `CLAUDE.md`.
+
 Repare no teclado embaixo: ele vai guardando o que você já descobriu.
 
 ---
 
 ## 4. A sessão com o Claude Code
 
-Na pasta do jogo, abra o Claude Code:
-
-```powershell
-claude
-```
+Com a pasta `termo-game` aberta no Claude Code, é só conversar.
 
 ### Primeiro: deixe ele ler o projeto
 
@@ -359,7 +362,7 @@ vazada, e ela é sua. Guarde numa variável de ambiente:
 setx ANTHROPIC_API_KEY "cole-a-sua-chave-aqui"
 ```
 
-Feche e abra o PowerShell depois. Para conferir se pegou:
+Feche e abra o Claude Code depois. Para conferir se pegou, no terminal dele:
 
 ```powershell
 echo $env:ANTHROPIC_API_KEY
@@ -387,7 +390,7 @@ funciona na sua máquina de uma que funciona na de todo mundo.
 
 | O que aconteceu                                | O que fazer                                                                            |
 | ---------------------------------------------- | -------------------------------------------------------------------------------------- |
-| `git`, `uv` ou `gh` não é reconhecido          | Feche e abra o PowerShell. Se continuar, rode o `winget install` daquela ferramenta de novo. |
+| `git`, `uv` ou `gh` não é reconhecido          | Feche e abra o Claude Code. Se continuar, rode o `winget install` daquela ferramenta de novo. |
 | `/plugin marketplace add` reclama de permissão | Você ainda não está na organização `39A-net-br`, ou falta `gh auth setup-git`.          |
 | As skills não aparecem ao digitar `/`          | Feche e abra o Claude Code — ele carrega o plugin ao abrir.                             |
 | `uv sync` falha ao baixar                      | Proxy ou antivírus da empresa. Tente pela rede do celular.                              |
